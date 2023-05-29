@@ -28,6 +28,7 @@ class Story {
   }
 }
 
+/* 
 const newStory = new Story({
   storyId: `5081e46e-3143-4c0c-bbf4-c22eb11eb3f5`,
   title: `The Best Story Ever"`,
@@ -36,8 +37,8 @@ const newStory = new Story({
   username: `hueter`,
   createdAt: `017-11-09T18:38:39.409Z`,
 });
-
 console.log(newStory.getHostName());
+*/
 
 /******************************************************************************
  * List of Story instances: used by UI to show story lists in DOM.
@@ -65,10 +66,12 @@ class StoryList {
     // query the /stories endpoint (no auth required)
     const response = await axios({
       url: `${BASE_URL}/stories`,
+      limit: 15,
       method: 'GET',
     });
 
     // turn plain old story objects from API into instances of Story class
+    console.log(response.data.stories);
     const stories = response.data.stories.map((story) => new Story(story));
 
     // build an instance of our own class using the new array of stories
@@ -86,6 +89,9 @@ class StoryList {
     // UNIMPLEMENTED: complete this function!
   }
 }
+
+const newList = StoryList.getStories();
+console.log(newList);
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
