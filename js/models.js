@@ -71,7 +71,6 @@ class StoryList {
     });
 
     // turn plain old story objects from API into instances of Story class
-    console.log(response.data.stories);
     const stories = response.data.stories.map((story) => new Story(story));
 
     // build an instance of our own class using the new array of stories
@@ -85,7 +84,7 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory(currentUser, { author, title, url }) {
+  static async addStory(currentUser, { author, title, url }) {
     // ! UNIMPLEMENTED: complete this function!
     const token = currentUser.loginToken;
     const response = await axios.post(`${BASE_URL}/stories`, {
@@ -97,6 +96,7 @@ class StoryList {
       },
     });
 
+    console.log(response.data.story);
     const story = new Story(response.data.story);
     this.stories.unshift(story);
     currentUser.ownStories.unshift(story);
@@ -104,16 +104,6 @@ class StoryList {
     return story;
   }
 }
-
-// (async () => {
-//   let newStory = await this.storyList.addStory(currentUser, {
-//     title: 'Test',
-//     author: 'Me',
-//     url: 'http://meow.com',
-//   });
-
-//   console.log(newStory instanceof Story);
-// })();
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
