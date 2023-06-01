@@ -33,7 +33,7 @@ async function start() {
   await checkForRememberedUser();
   await getAndShowStoriesOnStart();
 
-  let newStory = await storyList.addStory(currentUser, {
+  let newStory = await StoryList.addStory(currentUser, {
     title: 'Test',
     author: 'Me',
     url: 'http://meow.com',

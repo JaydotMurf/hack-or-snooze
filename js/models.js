@@ -28,18 +28,6 @@ class Story {
   }
 }
 
-/* 
-const newStory = new Story({
-  storyId: `5081e46e-3143-4c0c-bbf4-c22eb11eb3f5`,
-  title: `The Best Story Ever"`,
-  author: `Matt Lane`,
-  url: `https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math`,
-  username: `hueter`,
-  createdAt: `017-11-09T18:38:39.409Z`,
-});
-console.log(newStory.getHostName());
-*/
-
 /******************************************************************************
  * List of Story instances: used by UI to show story lists in DOM.
  */
@@ -64,11 +52,7 @@ class StoryList {
     //  instance method?
 
     // query the /stories endpoint (no auth required)
-    const response = await axios({
-      url: `${BASE_URL}/stories`,
-      limit: 15,
-      method: 'GET',
-    });
+    const response = await axios.get(`${BASE_URL}/stories`);
 
     // turn plain old story objects from API into instances of Story class
     const stories = response.data.stories.map((story) => new Story(story));
@@ -85,18 +69,13 @@ class StoryList {
    */
 
   static async addStory(currentUser, { author, title, url }) {
-    // ! UNIMPLEMENTED: complete this function!
     const token = currentUser.loginToken;
-    const response = await axios.post(`${BASE_URL}/stories`, {
-      token,
-      story: {
-        author,
-        title,
-        url,
-      },
+    const response = await axios({
+      method: 'POST',
+      url: `${BASE_URL}/stories`,
+      data: { token, story: { title, author, url } },
     });
 
-    console.log(response.data.story);
     const story = new Story(response.data.story);
     this.stories.unshift(story);
     currentUser.ownStories.unshift(story);
