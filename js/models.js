@@ -2,15 +2,7 @@
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
 
-/******************************************************************************
- * Story: a single story in the system
- */
-
 class Story {
-
-  /** Make instance of Story from data object about story:
-   *   - {title, author, url, username, storyId, createdAt}
-   */
 
   constructor({ storyId, title, author, url, username, createdAt }) {
     this.storyId = storyId;
@@ -21,63 +13,45 @@ class Story {
     this.createdAt = createdAt;
   }
 
-  /** Parses hostname out of URL and returns it. */
-
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    const hostName = new URL(this.url).hostname
+    return hostName;
   }
 }
-
-
-/******************************************************************************
- * List of Story instances: used by UI to show story lists in DOM.
- */
 
 class StoryList {
   constructor(stories) {
     this.stories = stories;
   }
 
-  /** Generate a new StoryList. It:
-   *
-   *  - calls the API
-   *  - builds an array of Story instances
-   *  - makes a single StoryList instance out of that
-   *  - returns the StoryList instance.
-   */
-
   static async getStories() {
-    // Note presence of `static` keyword: this indicates that getStories is
-    //  **not** an instance method. Rather, it is a method that is called on the
-    //  class directly. Why doesn't it make sense for getStories to be an
-    //  instance method?
+try {
+      const response = await axios.get(`${BASE_URL}/stories`, {params: {limit: 10}});
 
-    // query the /stories endpoint (no auth required)
-    const response = await axios({
-      url: `${BASE_URL}/stories`,
-      method: "GET",
-    });
-
-    // turn plain old story objects from API into instances of Story class
-    const stories = response.data.stories.map(story => new Story(story));
-
-    // build an instance of our own class using the new array of stories
-    return new StoryList(stories);
-  }
-
-  /** Adds story data to API, makes a Story instance, adds it to story list.
-   * - user - the current instance of User who will post the story
-   * - obj of {title, author, url}
-   *
-   * Returns the new Story instance
-   */
-
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
-  }
+      const stories = response.data.stories.map(story => new Story(story));
+      return new StoryList(stories);
+} catch (error) {
+  console.error(`The server cannot find the requested resource`);
 }
+  }
 
+  async addStory(currentUser, {title, author, url}) {
+    
+    try {
+    const token = currentUser.loginToken;
+    const res = await axios.post(`${BASE_URL}/stories`, { token, story: { title, author, url } });
+
+    const newStory = new Story(res.data.story);
+    this.stories.unshift(newStory);
+    currentUser.ownStories.unshift(newStory);
+
+    return newStory;
+  } catch (error) {
+    console.error(`Request has not been completed because it lacks valid authentication credentials for the requested resource.`);
+  }
+    }
+
+}
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
