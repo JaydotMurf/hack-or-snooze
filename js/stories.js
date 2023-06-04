@@ -7,7 +7,7 @@ let storyList;
 
 async function getAndShowStoriesOnStart() {
   console.debug('getAndShowStoriesOnStart');
-  
+
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
 
@@ -51,4 +51,18 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+}
+
+$body.on("click", "#submit-new-story", addNewStoryOnPage);
+
+async function addNewStoryOnPage(){
+  const $newAuthor = $("#new-author").val()
+  const $newTitle = $("#new-title").val()
+  const $newurl = $("#new-url").val()
+
+  console.log(currentUser);
+
+  let newStory = await storyList.addStory(currentUser, {title: $newTitle, author: $newAuthor, url: $newurl})
+
+  location.reload()
 }
