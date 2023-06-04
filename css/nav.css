@@ -17,6 +17,12 @@ nav {
   margin: 0 3px;
 }
 
+.nav-link:hover{
+  text-decoration: none;
+  box-shadow: inset 100px 0 0 0 #ffffff;
+  color: black;
+}
+
 .nav-right {
   margin-left: auto;
   text-align: right;
@@ -25,4 +31,10 @@ nav {
 .nav-center {
   margin-left: auto;
   text-align: center;
+}
+
+#nav-logout:hover{
+  text-decoration: none;
+  box-shadow: inset 100px 0 0 0 #ffffff;
+  color: black;
 }
