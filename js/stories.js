@@ -41,11 +41,11 @@ function generateStoryMarkup(story) {
 
   function generateHeartMarkup(story, currentUser) {
     const isFavorite = currentUser.isFavorite(story);
-    const heartType = isFavorite ? "fa-sharp fa-solid fa-heart" : "fa-sharp fa-regular fa-heart";
+    const heartType = isFavorite ? "fa-sharp fa-solid" : "fa-sharp fa-regular";
 
     return `
       <span class="heart">
-        <i class="${heartType}"></i>
+        <i class="${heartType} fa-heart"></i>
       </span>
     `;
   }
@@ -105,28 +105,27 @@ function putFavoritesListOnPage() {
   $favoritedStories.show();
 }
 
-// ! review code below
-
 /** Handle favorite/un-favorite a story */
 
-async function toggleStoryFavorite(evt) {
-  console.debug("toggleStoryFavorite");
+async function alterFavorites(evt) {
+  console.debug("alterFavorites");
 
   const $tgt = $(evt.target);
   const $closestLi = $tgt.closest("li");
   const storyId = $closestLi.attr("id");
-  const story = storyList.stories.find(s => s.storyId === storyId);
+  const story = storyList.stories.find((s) => s.storyId === storyId);
 
-  // see if the item is already favorited (checking by presence of star)
-  if ($tgt.hasClass("fas")) {
-    // currently a favorite: remove from user's fav list and change star
+  const isCurrentlyFavorite = $tgt.hasClass("fa-solid");
+
+  if (isCurrentlyFavorite) {
+    $tgt.removeClass("fa-sharp fa-solid fa-heart").addClass("fa-sharp fa-regular fa-heart");
     await currentUser.removeFavorite(story);
-    $tgt.closest("i").toggleClass("fas far");
   } else {
-    // currently not a favorite: do the opposite
+    $tgt.removeClass("fa-sharp fa-regular fa-heart").addClass("fa-sharp fa-solid fa-heart");
     await currentUser.addFavorite(story);
-    $tgt.closest("i").toggleClass("fas far");
   }
 }
 
-// $storiesLists.on("click", ".star", toggleStoryFavorite);
+$storiesLists.on("click", ".heart", alterFavorites);
+
+
