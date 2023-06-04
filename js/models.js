@@ -26,7 +26,7 @@ class StoryList {
 
   static async getStories() {
 try {
-      const response = await axios.get(`${BASE_URL}/stories`, {params: {limit: 10}});
+      const response = await axios.get(`${BASE_URL}/stories`, {params: {limit: 20}});
 
       const stories = response.data.stories.map(story => new Story(story));
       return new StoryList(stories);

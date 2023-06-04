@@ -41,15 +41,16 @@ function generateStoryMarkup(story) {
 
   function generateHeartMarkup(story, currentUser) {
     const isFavorite = currentUser.isFavorite(story);
-    const heartType = isFavorite ? "fa-heart" : "fa-heart-o";
+    const heartType = isFavorite ? "fa-sharp fa-solid fa-heart" : "fa-sharp fa-regular fa-heart";
 
     return `
       <span class="heart">
-        <i class="fa ${heartType}"></i>
+        <i class="${heartType}"></i>
       </span>
     `;
   }
 }
+
 
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */

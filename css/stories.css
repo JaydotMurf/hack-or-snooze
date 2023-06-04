@@ -37,3 +37,8 @@
 .story-user {
   display: block;
 }
+
+.fa-heart:hover{
+  transform: scale(1.5);
+}
+
