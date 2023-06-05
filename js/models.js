@@ -26,7 +26,7 @@ class StoryList {
 
   static async getStories() {
 try {
-      const response = await axios.get(`${BASE_URL}/stories`, {params: {limit: 20}});
+      const response = await axios.get(`${BASE_URL}/stories`);
 
       const stories = response.data.stories.map(story => new Story(story));
       return new StoryList(stories);
@@ -51,15 +51,15 @@ try {
   }
     }
 
-  async deleteStory(currentUser, storyID){
-    try {
+    async deleteStory(currentUser, storyId) {
       const token = currentUser.loginToken;
-      const res = await axios.delete(`${BASE_URL}/stories`/storyID, token);
-    } catch (error) {
-      console.error(error)
+      await axios.delete(`${BASE_URL}/stories/${storyId}`,{params: { token }})
+  
+      this.stories = this.stories.filter(story => story.storyId !== storyId);
+  
+      currentUser.ownStories = currentUser.ownStories.filter(s => s.storyId !== storyId);
+      currentUser.favorites = currentUser.favorites.filter(s => s.storyId !== storyId);
     }
-  }
-
 }
 
 /******************************************************************************
