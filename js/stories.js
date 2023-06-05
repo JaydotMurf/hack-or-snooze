@@ -14,7 +14,7 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   const hostname = story.getHostName();
   const shouldShowHeart = Boolean(currentUser);
-  const shouldShowTrash = (story.username === currentUser.username);
+  const shouldShowTrash = Boolean(currentUser) && story.username === currentUser.username;
 
   return $(`
     <li id="${story.storyId}">
@@ -35,6 +35,7 @@ function generateStoryMarkup(story) {
         <i class="fa-solid fa-trash"></i>
         </span>`;
   }
+
 
   function generateHeartMarkup(story, currentUser) {
     const isFavorite = currentUser.isFavorite(story);

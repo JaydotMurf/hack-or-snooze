@@ -10,6 +10,10 @@
   margin: 10px 0;
 }
 
+.stories-list > li:hover{
+  background-color: #f8c19c
+}
+
 #stories-loading-msg {
   font-weight: bold;
   font-size: 150%;

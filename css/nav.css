@@ -19,7 +19,7 @@ nav {
 
 .nav-link:hover{
   text-decoration: none;
-  box-shadow: inset 100px 0 0 0 #ffffff;
+  box-shadow: inset 100px 0 0 0 #f8c19c;
   color: black;
 }
 
@@ -35,6 +35,6 @@ nav {
 
 #nav-logout:hover{
   text-decoration: none;
-  box-shadow: inset 100px 0 0 0 #ffffff;
+  box-shadow: inset 100px 0 0 0 #f8c19c;
   color: black;
 }
