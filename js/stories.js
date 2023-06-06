@@ -98,6 +98,14 @@ function putUserStoriesOnPage() {
   hidePageComponents();
   $ownStories.empty();
 
+  const isUserLoggedIn = Boolean(currentUser);
+
+  if (!isUserLoggedIn) {
+    $ownStories.append('<h5>No stories added!</h5>');
+    $ownStories.show();
+    return;
+  }
+
   if (currentUser.ownStories.length === 0) {
     $ownStories.append('<h5>No stories added by user yet!</h5>');
   } else {
