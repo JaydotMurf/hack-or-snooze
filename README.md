@@ -1,4 +1,4 @@
-# Hacker Snooze
+# Hack-or-Snooze
 
 Hacker Snooze is a web application inspired by the popular platform Hacker News. It allows users to create accounts, log in, create articles, mark articles as favorites, and more! The project aims to provide a platform for users to share and discover intellectually stimulating news and discussions.
 
