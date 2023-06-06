@@ -1,6 +1,6 @@
 # Hack-or-Snooze
 
-Hacker Snooze is a web application inspired by the popular platform Hacker News. It allows users to create accounts, log in, create articles, mark articles as favorites, and more! The project aims to provide a platform for users to share and discover intellectually stimulating news and discussions.
+Hack-or-Snooze is a web application inspired by the popular platform Hacker News. It allows users to create accounts, log in, create articles, mark articles as favorites, and more! The project aims to provide a platform for users to share and discover intellectually stimulating news and discussions.
 
 ## Features
 
@@ -18,7 +18,7 @@ Hacker Snooze is a web application inspired by the popular platform Hacker News.
 
 ## Getting Started
 
-To get started with the Hacker Snooze project, follow these steps:
+To get started with the Hack-or-Snooze project, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/JaydotMurf/hack-or-snooze
 2. Access the application in your browser at `http://localhost:3000`
