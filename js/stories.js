@@ -14,11 +14,12 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   const hostname = story.getHostName();
   const shouldShowHeart = Boolean(currentUser);
-  const shouldShowTrash = Boolean(currentUser) && story.username === currentUser.username;
+  const shouldShowTrash =
+    Boolean(currentUser) && story.username === currentUser.username;
 
   return $(`
     <li id="${story.storyId}">
-    ${shouldShowTrash ? generateTrashMarkup() : ""}
+    ${shouldShowTrash ? generateTrashMarkup() : ''}
       ${shouldShowHeart ? generateHeartMarkup(story, currentUser) : ''}
       <a href="${story.url}" target="_blank" class="story-link">
         ${story.title}
@@ -35,7 +36,6 @@ function generateStoryMarkup(story) {
         <i class="fa-solid fa-trash"></i>
         </span>`;
   }
-
 
   function generateHeartMarkup(story, currentUser) {
     const isFavorite = currentUser.isFavorite(story);
@@ -63,10 +63,10 @@ function putStoriesOnPage() {
 }
 
 async function deleteOwnStory(evt) {
-  console.debug("deleteOwnStory");
+  console.debug('deleteOwnStory');
 
-  const $closestLi = $(evt.target).closest("li");
-  const storyId = $closestLi.attr("id");
+  const $closestLi = $(evt.target).closest('li');
+  const storyId = $closestLi.attr('id');
   console.log(storyId);
 
   await storyList.deleteStory(currentUser, storyId);
@@ -74,7 +74,7 @@ async function deleteOwnStory(evt) {
   putUserStoriesOnPage();
 }
 
-$ownStories.on("click", ".trash-can", deleteOwnStory);
+$ownStories.on('click', '.trash-can', deleteOwnStory);
 
 $body.on('click', '#submit-new-story', addNewStoryOnPage);
 
@@ -93,15 +93,14 @@ async function addNewStoryOnPage() {
 }
 
 function putUserStoriesOnPage() {
-  console.debug("putUserStoriesOnPage");
+  console.debug('putUserStoriesOnPage');
 
-  hidePageComponents()
+  hidePageComponents();
   $ownStories.empty();
 
   if (currentUser.ownStories.length === 0) {
-    $ownStories.append("<h5>No stories added by user yet!</h5>");
+    $ownStories.append('<h5>No stories added by user yet!</h5>');
   } else {
-    // loop through all of users stories and generate HTML for them
     for (let story of currentUser.ownStories) {
       let $story = generateStoryMarkup(story, true);
       $ownStories.append($story);
@@ -116,12 +115,12 @@ $body.on('click', '#nav-my-stories', putUserStoriesOnPage);
 function putFavoritesListOnPage() {
   console.debug('putFavoritesListOnPage');
 
-  if (currentUser === undefined){
+  if (currentUser === undefined) {
     $favoritedStories.empty();
     hidePageComponents();
     $favoritedStories.append('<h5>Must be logged in to show favorites!</h5>');
     $favoritedStories.show();
-    return
+    return;
   }
 
   $favoritedStories.empty();
