@@ -25,7 +25,7 @@ class StoryList {
 
   static async getStories() {
     try {
-      const response = await axios.get(`${BASE_URL}/stories`);
+      const response = await axios.get(`${BASE_URL}/stories`, { limit: 50 });
 
       const stories = response.data.stories.map((story) => new Story(story));
       return new StoryList(stories);
@@ -49,8 +49,9 @@ class StoryList {
       return newStory;
     } catch (error) {
       console.error(
-        `Request has not been completed because it lacks valid authentication credentials for the requested resource.`
+        'Request has not been completed because it lacks valid authentication credentials for the requested resource.'
       );
+      alert('Must be logged in to upload a story.');
     }
   }
 

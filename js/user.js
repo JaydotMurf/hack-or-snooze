@@ -3,18 +3,23 @@
 let currentUser;
 
 async function login(evt) {
-  console.debug('login', evt);
-  evt.preventDefault();
+  try {
+    console.debug('login', evt);
+    evt.preventDefault();
 
-  const username = $('#login-username').val();
-  const password = $('#login-password').val();
+    const username = $('#login-username').val();
+    const password = $('#login-password').val();
 
-  currentUser = await User.login(username, password);
+    currentUser = await User.login(username, password);
 
-  $loginForm.trigger('reset');
+    $loginForm.trigger('reset');
 
-  saveUserCredentialsInLocalStorage();
-  updateUIOnUserLogin();
+    saveUserCredentialsInLocalStorage();
+    updateUIOnUserLogin();
+  } catch (error) {
+    console.error('You have entered an invalid username or password!');
+    alert('You have entered an invalid username or password!');
+  }
 }
 
 $loginForm.on('submit', login);
